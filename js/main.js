@@ -207,7 +207,7 @@ function run() {
                     'SK Nigar RUS'
                 ];
                 var length_text = textHeader.length;
-                var otstupPovertikali = 0;
+                var marginTop = 0;
 
                 getTextSize();
                 /**
@@ -218,13 +218,13 @@ function run() {
                     var fonts = array[Math.floor(Math.random() * 9) + 0];
                     p.fill($('.pcr-result').val());
                     p.textFont(fonts);
-                    wrapText(p, textHeader.charAt(i), marginLeftAll, marginTopAll, n_size1, otstupPovertikali / 1.5, length_text - i);
+                    wrapText(p, textHeader.charAt(i), marginLeftAll, marginTopAll, n_size1, marginTop / 1.5, length_text - i, fonts);
                 }
 
                 //p.textSize(28);
                 //p.fill(255, 0, 0, 51);
 
-                function wrapText(context, words, marginLeft, marginTop, maxWidth, lineHeight, lengthAllTextEnd) {
+                function wrapText(context, words, marginLeft, marginTop, maxWidth, lineHeight, lengthAllTextEnd, font_char) {
                     var countWords = words.length;
                     var line = "";
                     for (var n = 0; n < countWords; n++) {
@@ -238,7 +238,9 @@ function run() {
                                 marginLeftAll = marginLeftAll_const;
                             }
                             marginLeft = marginLeftAll;
-                            context.text(line, marginLeft, marginTop);
+
+                            context.text(line, marginLeft, marginTop); //вывод буквы
+
                             line = words[n];
                         } else {
                             line = testLine;
@@ -246,7 +248,7 @@ function run() {
                     }
 
                     marginLeftAll += context.textWidth(words);
-                    context.text(line, marginLeft, marginTop);
+                    context.text(line, marginLeft, marginTop);// вывод буквы
                 }
 
                 function getTextSize() {
@@ -254,9 +256,9 @@ function run() {
                         p.textSize(i);
                         let char = "И";
 
-                        otstupPovertikali = p.textAscent() + p.textDescent();
+                        marginTop = p.textAscent() + p.textDescent();
                         x = parseInt((n_size1) / p.textWidth(char));
-                        y = parseInt((n_size2) / otstupPovertikali);
+                        y = parseInt((n_size2) / marginTop);
 
                         let z = x * y;
                         if (z >= length_text) {
