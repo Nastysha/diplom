@@ -138,7 +138,7 @@ function run() {
 
             function drawImage(pixels) {
 
-                let x, y;
+                let x = 0, y = 0;
                 let k = Math.floor(Math.random() * 4) + 1;
                 p.noiseSeed(Math.random() * 999999);
                 /**
@@ -191,8 +191,6 @@ function run() {
                  * @type {number}
                  */
                 let marginLeftAll = 0;
-                let marginTopAll = 100;
-                let marginLeftAll_const;
                 let textHeader = $('#inputHeader').val();
                 let textDescription = $('#textDescription').val();
                 let array = [
@@ -206,80 +204,101 @@ function run() {
                     'mr_EklektykG Stencil',
                     'SK Nigar RUS'
                 ];
-                var length_text = textHeader.length;
                 var marginTop = 0;
-                let line_array = [];
 
-                getTextSize();
                 /**
                  * Рисуем заголовок
                  */
-                for (let i = 0; i < length_text; i++) {
-                    p.fill(0, 0, 0);
-                    var fonts = array[Math.floor(Math.random() * 9) + 0];
-                    p.fill($('.pcr-result').val());
-                    p.textFont(fonts);
-                    wrapText(p, textHeader.charAt(i), marginLeftAll, marginTopAll, n_size1, marginTop / 1.5, length_text - i, fonts);
-                }
-
-                //p.textSize(28);
-                //p.fill(255, 0, 0, 51);
-
-                function wrapText(context, words, marginLeft, marginTop, maxWidth, lineHeight, lengthAllTextEnd, font_char) {
-                    var line = words;
-                        var testLine = words;
-                        if ((marginLeft + context.textWidth(words)) > maxWidth) {
-                            marginTopAll += lineHeight;
-                            marginTop = marginTopAll;
-                            if (lengthAllTextEnd < x) {
-                                marginLeftAll = (n_size1 - lengthAllTextEnd * p.textWidth(words)) / 2;
-                            } else {
-                                marginLeftAll = marginLeftAll_const;
-                            }
+                let line_array = getLineArray(textHeader);
+                drawText(line_array);
+                /**
+                 */
+                function getLineArray(text) {
+                    getTextSize();
+                    let marginLeft = marginLeftAll, lineHeight = marginTop / 1.5, font, line = 0, lineArray = [];
+                    for (let i = 0; i < text.length; i++) {
+                        font = array[Math.floor(Math.random() * 9) + 0];
+                        p.textFont(font);
+                        if ((marginLeft + p.textWidth(text.charAt(i))) > n_size1) {
+                            marginTop += lineHeight;
                             marginLeft = marginLeftAll;
-                            context.text(line, marginLeft, marginTop); //вывод буквы
-                            marginLeftAll += context.textWidth(words);
-                            return ;
+                            lineArray.push([line, marginLeft, marginTop, text.charAt(i), p.textWidth(text.charAt(i)), p.textAscent() + p.textDescent(), font]);
+                            line++;
+                        } else {
+                            marginLeft += p.textWidth(text.charAt(i));
+                            lineArray.push([line, marginLeft, marginTop, text.charAt(i), p.textWidth(text.charAt(i)), p.textAscent() + p.textDescent(), font]);
                         }
-                    marginLeftAll += context.textWidth(words);
-                    context.text(line, marginLeft, marginTop);// вывод буквы
+                    }
+                    return lineArray;
                 }
 
-                function getTextSize() {
-                    for (let i = 200; i > 0; i--) {
-                        p.textSize(i);
-                        let char = "И";
-
-                        marginTop = p.textAscent() + p.textDescent();
-                        x = parseInt((n_size1) / p.textWidth(char));
-                        y = parseInt((n_size2) / marginTop);
-
-                        let z = x * y;
-                        if (z >= length_text) {
-                            // marginLeftAll_const = (n_size1 - x * p.textWidth(char)) / 2;
-                            marginLeftAll_const = p.textWidth(char)/2;
-                            console.log(n_size1,x, p.textWidth(char));
-                            marginLeftAll = marginLeftAll_const;
-                            marginTopAll = p.textAscent() /*+ p.textDescent()*/;
-                            return i;
-                            break;
+                function drawText(text) {
+                    p.fill($('.pcr-result').val());
+                    let marginLeftArray = [], marginTopArray = [], lineHeight = marginTop;
+                    marginTop = (n_size2 - (text[text.length - 1][0] + 1) * (text[text.length - 1][5] + text[text.length - 1][0] / 1.5)) / 2;
+                    for (let i = 0; i < text[text.length - 1][0] + 1; i++) {
+                        marginLeftArray[i] = 0;
+                        marginTopArray[i] = 0;
+                        for (let j = 0; j < text.length; j++) {
+                            if (text[j][0] === i) {
+                                marginLeftArray[i] += text[j][4];
+                            }
                         }
+                        marginLeftArray[i] = (n_size1 - marginLeftArray[i]) / 2;
+                        marginTopArray[i] = 
+                    }
+
+                    let marginLet = 0, countStr = 0,;
+
+                    for (let i = 0; i < text.length; i++) {
+                        if (text[i][0] != countStr) {
+                            countStr = text[i][0];
+                            marginLet = 0;
+                        }
+                        p.textFont(text[i][6]);
+                        p.text(text[i][3], marginLeftArray[text[i][0]] + marginLet , marginTop);
+                        marginLet += p.textWidth(text[i][3]) + p.textWidth(text[i][4]);
+                    }
+                }
+
+            function getTextSize() {
+                for (let i = 200; i > 0; i--) {
+                    p.textSize(i);
+                    let char = "И";
+
+                    marginTop = p.textAscent() + p.textDescent();
+                    x = parseInt((n_size1) / p.textWidth(char));
+                    y = parseInt((n_size2) / marginTop);
+
+                    let z = x * y;
+                    if (z >= textHeader.length) {
+                        // marginLeftAll_const = (n_size1 - x * p.textWidth(char)) / 2;
+                        // marginLeftAll_const = p.textWidth(char) / 2;
+                        marginLeftAll = p.textWidth(char) / 2;
+                        // marginTopAll = /*p.textAscent()*/ /*+ p.textDescent()*/ marginTop / 1.5;
+                        return i;
+                        break;
                     }
                 }
             }
-        };
-        new p5(sketch);
-
-        function newArray(n, value) {
-            n = n || 0;
-            var array = new Array(n);
-            for (var i = 0; i < n; i++) {
-                array[i] = value;
-            }
-            return array;
         }
+    };
+    new p5(sketch);
+
+    function newArray(n, value) {
+        n = n || 0;
+        var array = new Array(n);
+        for (var i = 0; i < n; i++) {
+            array[i] = value;
+        }
+        return array;
+    }
 
 
-    }));
 }
+
+))
+;
+}
+
 run();
