@@ -208,6 +208,7 @@ function run() {
                 ];
                 var length_text = textHeader.length;
                 var marginTop = 0;
+                let line_array = [];
 
                 getTextSize();
                 /**
@@ -225,28 +226,21 @@ function run() {
                 //p.fill(255, 0, 0, 51);
 
                 function wrapText(context, words, marginLeft, marginTop, maxWidth, lineHeight, lengthAllTextEnd, font_char) {
-                    var countWords = words.length;
-                    var line = "";
-                    for (var n = 0; n < countWords; n++) {
-                        var testLine = words[n];
+                    var line = words;
+                        var testLine = words;
                         if ((marginLeft + context.textWidth(words)) > maxWidth) {
                             marginTopAll += lineHeight;
                             marginTop = marginTopAll;
                             if (lengthAllTextEnd < x) {
-                                marginLeftAll = (n_size1 - lengthAllTextEnd * p.textWidth(words[n])) / 2;
+                                marginLeftAll = (n_size1 - lengthAllTextEnd * p.textWidth(words)) / 2;
                             } else {
                                 marginLeftAll = marginLeftAll_const;
                             }
                             marginLeft = marginLeftAll;
-
                             context.text(line, marginLeft, marginTop); //вывод буквы
-
-                            line = words[n];
-                        } else {
-                            line = testLine;
+                            marginLeftAll += context.textWidth(words);
+                            return ;
                         }
-                    }
-
                     marginLeftAll += context.textWidth(words);
                     context.text(line, marginLeft, marginTop);// вывод буквы
                 }
