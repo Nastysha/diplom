@@ -15,62 +15,50 @@
     <title>Генератор постеров</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.js"></script>
-    <!--    <script src="dist/index.js"></script>-->
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.css"
+          rel="stylesheet">
 </head>
-<!--<body style="text-align:center; margin-top:50px;" onload="OnLoad()">-->
 <body>
 <div id="preLoader" style="z-index: 100000; position: absolute; display: flex; margin: auto;">
 
-    <h1 class="title-loader"><!--Loading--><img src="qhvOC.gif"></h1>
+    <h1 class="title-loader"><!--Loading--><img src="img/preLoad.gif"></h1>
 
-    <div class="block-preload"> </div>
+    <div class="block-preload"></div>
 </div>
 <div class="container-fluid h-100">
-    <div class="row  h-100">
-        <div class="col-md-9 h-100">
+    <div class="row  h-100" style="background: #000000">
+        <div class="col-md-7 h-100">
             <div class="d-flex align-items-center h-100" style="width: 100%; text-align: center;">
-                <div id="maskFrame" style="text-align: center; margin-left: 30%">
+                <div id="maskFrame" style="text-align: center; margin-left: 20%">
                 </div>
             </div>
         </div>
-        <div class="col-md-3 h-100">
-            <div class="d-flex align-items-center h-100" style="background: rgba(255,0,0,30%);">
-                <ul class="page-sidebar-menu" style="margin-right: 10%">
-                    <li class="nav-item" style="margin-top: 10%">
-                        <label>Введите заголовок</label>
-                        <div>
-                            <input type="text" class="form-control" id="inputHeader">
+        <div class="col-md-5 h-100">
+            <div class="d-flex align-items-center h-100 sideBar" style="">
+                <div class="right-menu">
+                    <div class="input-container input-text">
+                        <div class="input-color">
+                            <label for="inputHeader">название</label>
+                            <div id="picker"></div>
                         </div>
-                    </li>
-                    <li>
-                        <div id="picker" style="margin-left: 20%; margin-top: 10%"></div>
-                    </li>
-                    <li class="nav-item" style="margin-top: 10%">
-                        <label>Введите описание</label>
-                        <div>
-                            <input type="text" class="form-control" id="inputText">
+                        <textarea name="" id="inputHeader" placeholder="Введите текст" rows="3"></textarea>
+                    </div>
+                    <div class="input-container input-discription">
+                        <div class="input-color">
+                            <label for="inputDescription">описание</label>
+                            <div id="picker_2"></div>
                         </div>
-                    </li>
-                    <li class="nav-item" style="margin-top: 10%">
-                        <label>Введите дату</label>
-                        <div>
-                            <input type="text" class="form-control" id="inputText">
-                        </div>
-                    </li>
-                    <li>
-                        <form style="margin-top: 10%">
-                            <div class="form-group" id="inputFile">
-
-                            </div>
-                        </form>
-                    </li>
-                    <li>
-                        <button type="submit" class="btn btn-primary" id="onLoad" style="margin-top: 10%">Сгенерировать
-                        </button>
-                    </li>
-                </ul>
+                        <textarea id="inputDescription" placeholder="Введите текст" rows="3"></textarea>
+                    </div>
+                    <div class="input-container input-data">
+                        <input type="text" placeholder="Введите дату" id="inputDate">
+                    </div>
+                    <div class="input-container input-time">
+                        <input type="text" placeholder="Введите время" id="inputTime">
+                    </div>
+                    <div class="input-container input-group" id="inputFile"></div>
+                    <button id="onLoad" class="btn btn-primary">Загрузить</button>
+                </div>
             </div>
         </div>
     </div>
@@ -87,271 +75,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.es5.min.js"></script>
-<script>
-
-    // var colorPicker = new iro.ColorPicker("#picker", {
-    //     // Set the size of the color picker
-    //     width: 160,
-    //     // Set the initial color to pure red
-    //     color: "#f00"
-    // });
-
-    const pickr = Pickr.create({
-        el: '#picker',
-        theme: 'nano', // or 'monolith', or 'nano'
-
-        components: {
-
-            // Main components
-            preview: true,
-            opacity: true,
-            hue: true,
-
-            // Input / output Options
-            interaction: {
-                hex: true,
-                rgba: false,
-                hsla: false,
-                hsva: false,
-                cmyk: false,
-                input: true,
-                clear: false,
-                save: false
-            }
-        }
-    });
-
-</script>
-<script>
-    $('#preLoader').hide();
-    let click = false;
-    let inFile;
-
-    $('#onLoad').on('click', function () {
-        $('#preLoader').show();
-        setTimeout(10);
-    });
-
-    function run() {
-        (function (factory) {
-            typeof define === 'function' && define.amd ? define(factory) :
-                factory();
-        }(function () {
-            let sketch = function (p) {
-                let n_size1 = 400;
-                let n_size2 = 600;
-                let nx, ny;
-                let input;
-                p.setup = function () {
-                    const c = p.createCanvas(n_size1, n_size2);
-                    p.pixelDensity(1);
-                    p.noLoop();
-                    c.parent("maskFrame");
-                    input = p.createFileInput(gotFile);
-                    input.parent('inputFile');
-                    $('#onLoad').on('click', function () {
-                        $('#preLoader').show();
-                        click = true;
-                        gotFile(inFile);
-                    });
-                };
-
-                p.draw = function () {
-                    // p.fill(255);
-                    // p.textSize(21);
-                    // p.textAlign(p.CENTER);
-                    // p.background('#888');
-
-                };
-
-                p.keyPressed = function () {
-                    if (p.keyCode === 80) p.saveCanvas('noisify', 'jpeg');
-                };
-
-                let image_test;
-
-                function gotFile(file) {
-                    inFile = file;
-                    if (click) {
-                        if (file.type === 'image') {
-                            image_test = file.data;
-                            p.loadImage(file.data, imageLoaded);
-                        } else {
-                            console.log('Этот файл не Jpeg!');
-                        }
-                    }
-                }
-
-                function imageLoaded(img) {
-                    p.loadPixels();
-                    img.loadPixels();
-
-                    nx = img.width;
-                    ny = img.height;
-
-                    // console.log()
-
-                    const imgpixels = newArray(img.height).map((_, i) =>
-                        newArray(img.width).map((_, j) => {
-                            var loc = (i + j * img.width) * 4;
-                            return [img.pixels[loc + 0], img.pixels[loc + 1], img.pixels[loc + 2]];
-                        })
-                    );
-                    // console.log(imgpixels);
-                    drawImage(imgpixels);
-                    $('#preLoader').hide();
-                    setTimeout(100)
-                    $('#preLoader').hide();
-                }
-
-                function drawImage(pixels) {
-
-                    let x, y;
-                    let k = Math.floor(Math.random() * 4) + 1;
-                    p.noiseSeed(Math.random() * 999999);
-                    for (let i = 0; i < p.height; i++) {
-                        for (let j = 0; j < p.width; j++) {
-
-                            let cx = 0;
-                            let cy = 0;
-                            let dx = 0;
-                            let dy = 0;
-                            switch (k) {
-                                case 1 : {
-                                    cx = p.noise(i / n_size1, j / n_size1, 103) * nx;
-                                    cy = p.noise(i / n_size1, j / n_size1, 200) * ny;
-                                    dx = p.noise(i / n_size2, j / n_size2, 300) * (nx / 20);
-                                    dy = p.noise(i / n_size2, j / n_size2, 400) * (ny / 20);
-                                }
-                                    break;
-                                case 2 : {
-                                    cx = p.noise(i / 320, (j - 7) / 3, (i + j) * 0, 2) * nx;
-                                    cy = p.noise(j / 100, i / 200) * ny;
-                                    dx = p.noise(i / 100, j / 200) * (nx / 20);
-                                    dy = p.noise(j / 100, i / 200) * (ny / 20);
-                                }
-                                    break;
-                                case 3 : {
-                                    cx = p.noise(i / 10, j / 200) * nx;
-                                    cy = p.noise(i / 150, j / 20) * ny;
-                                    dx = p.noise(i / 30, j / 30) * (nx / 20);
-                                    dy = p.noise(i / 10, j / 999) * (ny / 20);
-                                }
-                                    break;
-                                case 4 : {
-                                    cx = p.noise(i / 100, j / 200) * nx;
-                                    cy = p.noise(i / 100, j / 200) * ny;
-                                    dx = p.noise(i / 100, j / 200) * (nx / 20);
-                                    dy = p.noise(i / 100, j / 200) * (ny / 20);
-                                }
-                                    break;
-
-                            }
-                            let c = pixels[p.floor(cy + dy)][p.floor(cx + dx)];
-                            p.stroke(...c);
-                            p.point(j, i);
-                        }
-                    }
-
-                    let marginLeftAll = 0;
-                    let marginTopAll = 100;
-                    let marginLeftAll_const;
-                    let text_filed = $('#inputHeader').val();
-                    // let array = [
-                    //     'd_Pitch',
-                    //     'Blacker Pro Display Trial',
-                    //     'Colus',
-                    //     'd_Pitch Black',
-                    //     'Fakedes Outline',
-                    //     'Gorod', 'LaMos',
-                    //     'Miratrix',
-                    //     'mr_EklektykG Stencil',
-                    //     'SK Nigar RUS'
-                    // ];
-                    let array = [
-                        'd_Pitch',
-                        'Blacker Pro Display Trial',
-                        'Colus',
-                        'd_Pitch Black',
-                        'Fakedes Outline',
-                        'Gorod', 'LaMos',
-                        'Miratrix',
-                        'mr_EklektykG Stencil',
-                        'SK Nigar RUS'
-                    ];
-                    var length_text = text_filed.length;
-                    var otstupPovertikali = 0;
-
-                    for (let i = 200; i > 0; i--) {
-                        p.textSize(i);
-                        let char = "И";
-
-                        otstupPovertikali = p.textAscent() + p.textDescent();
-                        x = parseInt((n_size1) / p.textWidth(char));
-                        y = parseInt((n_size2) / otstupPovertikali);
-
-                        let z = x * y;
-                        if (z >= length_text) {
-                            marginLeftAll_const = (n_size1 - x * p.textWidth(char)) / 2;
-                            marginLeftAll = marginLeftAll_const;
-                            marginTopAll = p.textAscent() + p.textDescent();
-                            break;
-                        }
-                    }
-
-                    for (let i = 0; i < length_text; i++) {
-                        p.fill(0, 0, 0);
-                        var fonts = array[Math.floor(Math.random() * 9) + 0];
-                        //colorPicker.color.hexString
-                        p.fill(colorPicker.color.hexString);
-                        p.textFont(fonts);
-                        wrapText(p, text_filed.charAt(i), marginLeftAll, marginTopAll, n_size1, otstupPovertikali / 1.5, length_text - i);
-                    }
-                    p.textSize(28);
-                    p.fill(255, 0, 0, 51);
-
-                    function wrapText(context, words, marginLeft, marginTop, maxWidth, lineHeight, lengthAllTextEnd) {
-                        var countWords = words.length;
-                        var line = "";
-                        for (var n = 0; n < countWords; n++) {
-                            var testLine = words[n];
-                            if ((marginLeft + context.textWidth(words)) > maxWidth) {
-                                marginTopAll += lineHeight;
-                                marginTop = marginTopAll;
-                                if (lengthAllTextEnd < x) {
-                                    marginLeftAll = (n_size1 - lengthAllTextEnd * p.textWidth(words[n])) / 2;
-                                } else {
-                                    marginLeftAll = marginLeftAll_const;
-                                }
-                                marginLeft = marginLeftAll;
-                                context.text(line, marginLeft, marginTop);
-                                line = words[n];
-                            } else {
-                                line = testLine;
-                            }
-                        }
-
-                        marginLeftAll += context.textWidth(words);
-                        context.text(line, marginLeft, marginTop);
-                    }
-                }
-            };
-            new p5(sketch);
-
-            function newArray(n, value) {
-                n = n || 0;
-                var array = new Array(n);
-                for (var i = 0; i < n; i++) {
-                    array[i] = value;
-                }
-                return array;
-            }
-
-
-        }));
-    }
-
-    run();
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>
