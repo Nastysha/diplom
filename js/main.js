@@ -84,10 +84,10 @@ function run() {
                             click = true;
                             gotFile(inFile);
                             drawblur = true;
+                        $('#preLoader').hide();
                     });
-                    // p.textFont('Quarantype Campfire');
                     p.textFont('font_lat_1');
-                    // p.fill
+                    $('#preLoader').hide();
                 };
 
                 p.draw = function () {
@@ -135,7 +135,6 @@ function run() {
                             return [img.pixels[loc + 0], img.pixels[loc + 1], img.pixels[loc + 2]];
                         })
                     );
-                    // console.log(imgpixels);
                     drawImage(imgpixels);
                     $('#preLoader').hide();
                     setTimeout(100)
@@ -200,32 +199,27 @@ function run() {
                     let textDescription = $('#inputDescription').val(),
                         textDate = $('#inputDate').val(),
                         textTime = $('#inputTime').val();
-                    let array = [
-                        'd_Pitch',
-                        'Blacker Pro Display Trial',
-                        'Colus',
-                        'd_Pitch Black',
-                        'Fakedes Outline',
-                        'Gorod', 'LaMos',
-                        'Miratrix',
-                        'mr_EklektykG Stencil',
-                        'SK Nigar RUS'
-                    ];
                     var marginTop = 0;
                     var marginTopAll = 0;
 
                     /**
                      * Рисуем заголовок
                      */
-                    let line_array = getLineArray(textHeader);
-                    console.log(line_array);
-                    drawText(line_array);
+                    if (textHeader != null) {
+
+                            let line_array = getLineArray(textHeader);
+                            drawText(line_array);
+                        }
 
                     function getLineArray(text) {
                         getTextSize();
                         let marginLeft = marginLeftAll, lineHeight = marginTop / 1.5, font, line = 0, lineArray = [];
                         for (let i = 0; i < text.length; i++) {
-                            font = array[Math.floor(Math.random() * 9) + 0];
+                            if (text.charAt(i).charCodeAt(0) > 127) {
+                                font = 'font_' + (Math.floor(Math.random() * 9) + 0);
+                            } else {
+                                font = 'font_lat_' + (Math.floor(Math.random() * 8) + 0);
+                            }
                             p.textFont(font);
                             if ((marginLeft + p.textWidth(text.charAt(i))) > n_size1) {
                                 marginTop += lineHeight;
@@ -239,7 +233,6 @@ function run() {
                         }
                         return lineArray;
                     }
-
                     function drawText(text) {
                         // getTextSize();
                         p.fill($('.pcr-result').val());
@@ -286,7 +279,6 @@ function run() {
                             marginLeft += p.textWidth(text[i][3]) / 2;
                         }
                     }
-
                     function getTextSize() {
                         for (let i = 400; i > 0; i--) {
                             p.textSize(i);
@@ -316,9 +308,18 @@ function run() {
                     /**
                      * Рисуем описание
                      */
-                    drawDescription(textDescription, 36);
-                    drawDescription(textDate, 42);
-                    drawDescription(textTime, 42);
+
+                        font = 'font_lat_' + (Math.floor(Math.random() * 8) + 0);
+                    p.textFont(font);
+                    if (textDescription != null) {
+                        drawDescription(textDescription, 36);
+                    }
+                    if (textDate != null) {
+                        drawDescription(textDate, 42);
+                    }
+                    if (textTime != null) {
+                        drawDescription(textTime, 42);
+                    }
 
                     function drawDescription(text, textS) {
                         p.textSize(textS);
@@ -359,7 +360,7 @@ function run() {
             };
             new p5(sketch);
             click = false;
-
+        $('#preLoader').hide();
             function newArray(n, value) {
                 n = n || 0;
                 var array = new Array(n);

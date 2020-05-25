@@ -73,9 +73,77 @@
     font-family: font_1; /* Имя шрифта */
     src: url(../fonts/1.ttf); /* Путь к файлу со шрифтом */
 }
+
+@font-face {
+    font-family: font_2; /* Имя шрифта */
+    src: url(../fonts/2.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: font_3; /* Имя шрифта */
+    src: url(../fonts/3.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: font_4; /* Имя шрифта */
+    src: url(../fonts/4.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: font_5; /* Имя шрифта */
+    src: url(../fonts/5.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: font_6; /* Имя шрифта */
+    src: url(../fonts/6.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: font_7; /* Имя шрифта */
+    src: url(../fonts/7.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: font_8; /* Имя шрифта */
+    src: url(../fonts/8.ttf); /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: font_9; /* Имя шрифта */
+    src: url(../fonts/9.ttf); /* Путь к файлу со шрифтом */
+}
 @font-face {
     font-family: font_lat_1; /* Имя шрифта */
-    src: url(../fonts/Campfire.ttf); /* Путь к файлу со шрифтом */
+    src: url(../fonts/01.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: font_lat_2; /* Имя шрифта */
+    src: url(../fonts/02.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: font_lat_3; /* Имя шрифта */
+    src: url(../fonts/03.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: font_lat_4; /* Имя шрифта */
+    src: url(../fonts/04.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: font_lat_5; /* Имя шрифта */
+    src: url(../fonts/05.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: font_lat_6; /* Имя шрифта */
+    src: url(../fonts/06.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: font_lat_7; /* Имя шрифта */
+    src: url(../fonts/07.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+    font-family: font_lat_8; /* Имя шрифта */
+    src: url(../fonts/08.ttf); /* Путь к файлу со шрифтом */
 }
 
 
