@@ -347,9 +347,13 @@ function run() {
                         font = 'font_lat_' + (Math.floor(Math.random() * 8) + 0);
                     p.textFont(font);
                     if (textDescription != null) {
+                        font = 'font_' + (Math.floor(Math.random() * 9) + 0);
+                        p.textFont(font);
                         drawDescription(textDescription, 30);
                     }
                     if (textDate != null) {
+                        font = 'font_lat_' + (Math.floor(Math.random() * 9) + 0);
+                        p.textFont(font);
                         drawDescription(textDate, 42);
                     }
                     if (textTime != null) {
