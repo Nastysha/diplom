@@ -239,12 +239,10 @@ function run() {
                     /**
                      * Рисуем заголовок
                      */
-                    if (textHeader != null) {
-
+                    if (textHeader.length != 0) {
                             let line_array = getLineArray(textHeader);
                             drawText(line_array);
                         }
-
                     function getLineArray(text) {
                         getTextSize();
                         let marginLeft = marginLeftAll, lineHeight = marginTop / 1.5, font, line = 0, lineArray = [];
@@ -337,26 +335,17 @@ function run() {
                         }
                     }
 
-                    /**
-                     */
-
-                    /**
-                     * Рисуем описание
-                     */
-
-                        font = 'font_lat_' + (Math.floor(Math.random() * 8) + 0);
-                    p.textFont(font);
-                    if (textDescription != null) {
+                    if (textDescription.length != 0) {
                         font = 'font_' + (Math.floor(Math.random() * 9) + 0);
                         p.textFont(font);
                         drawDescription(textDescription, 30);
                     }
-                    if (textDate != null) {
+                    if (textDate.length != 0) {
                         font = 'font_lat_' + (Math.floor(Math.random() * 9) + 0);
                         p.textFont(font);
                         drawDescription(textDate, 42);
                     }
-                    if (textTime != null) {
+                    if (textTime.length != 0) {
                         drawDescription(textTime, 42);
                     }
 
@@ -380,26 +369,15 @@ function run() {
                         x1 = Math.floor(Math.random() * x1_max) + p.textWidth(text);
                         x2 = Math.floor(Math.random() * x2_max) + p.textAscent() + p.textDescent();
 
-
                         p.text(text, x1, x2);
                     }
 
-                    /**
-                     */
-                    // p.fill('#FFFFFFD1');
-                    // p.circle(n_size2 / 2, n_size1 / 2, 100);
-                    // p.filter('BLUR', 3);
-
-                }
-
-                function getBlur() {
-                    p.circle(n_size2 / 2,  n_size1 / 2, 50);
-                    p.filter('BLUR', 3);
                 }
             };
             new p5(sketch);
             click = false;
         $('#preLoader').hide();
+
             function newArray(n, value) {
                 n = n || 0;
                 var array = new Array(n);
