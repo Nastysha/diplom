@@ -300,13 +300,13 @@ function run() {
                             }
                             if ((Math.random() >= 0.6)) {
                                 // p.fill('#FFFFFFA8');
-                                p.fill('#' + pickr2.getColor().toHEXA().join('') + '33');
+                                //p.fill('#' + pickr2.getColor().toHEXA().join('') + '33');
                                 // p.fill('#FFFFFFA8');
                                 // p.image(blurImg, Math.floor(Math.random() * n_size1) + 0, Math.floor(Math.random() * n_size2) + 0,70, 70);
                                 // p.filter('BLUR', 3);
-                                p.circle(Math.floor(Math.random() * n_size2) + 0, Math.floor(Math.random() * n_size1) + 0, Math.floor(Math.random() * 30) + 20);
+                                //p.circle(Math.floor(Math.random() * n_size2) + 0, Math.floor(Math.random() * n_size1) + 0, Math.floor(Math.random() * 30) + 20);
                                 // p.filter('');
-                                p.fill($('.pcr-result').val());
+                                //p.fill($('.pcr-result').val());
                             }
 
                             p.textFont(text[i][6]);
