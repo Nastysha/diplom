@@ -1,3 +1,16 @@
+// function loadFonts() {
+// //     // loadFonts
+// //     for (let i = 1; i < 10; i++) {
+// //         $(".loadFonts").css("font-family", "");
+// //         $(".loadFonts").css("font-family", "\'font_" + i + "\'");
+// //     }
+// //     for (let i = 1; i < 9; i++) {
+// //         $(".loadFonts").css("font-family", "");
+// //         $(".loadFonts").css("font-family", "\'font_lat_" + i + "\'");
+// //     }
+// // }
+// // loadFonts();
+
 const pickr = Pickr.create({
     el: '#picker',
     theme: 'nano', // or 'monolith', or 'nano'
@@ -58,7 +71,19 @@ $('#onLoad').on('click', function () {
     setTimeout(10);
 });
 
+pickr.on('change', instance => {
+    console.log('click');
+    pickr.applyColor(false);
+});
+pickr2.on('change', instance => {
+    console.log('click');
+    pickr2.applyColor(false);
+});
+
+
+
 function run() {
+    $('#preLoader').show();
     (function (factory) {
         typeof define === 'function' && define.amd ? define(factory) :
             factory();
@@ -68,14 +93,14 @@ function run() {
                 let n_size2 = 600;
                 let nx, ny;
                 let input;
-                let blurImg;
+                // let blurImg;
                 p.setup = function () {
                     const c = p.createCanvas(n_size1, n_size2);
                     p.pixelDensity(1);
                     p.noLoop();
                     c.parent("maskFrame");
-                    blurImg = p.loadImage('/diplom-master/img/blur.png');
-                    blurImg.filter('BLUR', 3);
+                    // blurImg = p.loadImage('/diplom-master/img/blur.png');
+                    // blurImg.filter('BLUR', 3);
                     input = p.createFileInput(gotFile);
                     input.parent('inputFile');
                     input.class('form-control-file');
@@ -91,6 +116,9 @@ function run() {
                 };
 
                 p.draw = function () {
+
+
+
                     p.fill(0);
                     p.textSize(98);
                     p.textAlign(p.CENTER);
@@ -98,11 +126,17 @@ function run() {
 
                     // p.textFont('Campfire');
                     p.text('GENI', p.width / 2, p.height / 1.8);
+                    p.background('#353535');
+                    p.text('GENI', p.width / 2, p.height / 1.8);
 
                 };
 
+                $('#saveImg').on('click', function () {
+                    p.saveCanvas('Geni', 'jpeg');
+                });
+
                 p.keyPressed = function () {
-                    if (p.keyCode === 80) p.saveCanvas('noisify', 'jpeg');
+
                 };
 
                 let image_test;
@@ -265,18 +299,19 @@ function run() {
                                 marginLeft += p.textWidth(text[i][3]) / 2;
                             }
                             if ((Math.random() >= 0.6)) {
-                                console.log('tru');
-                                // p.fill('#FFFFFFD1');
+                                // p.fill('#FFFFFFA8');
+                                p.fill('#' + pickr2.getColor().toHEXA().join('') + '33');
+                                // p.fill('#FFFFFFA8');
                                 // p.image(blurImg, Math.floor(Math.random() * n_size1) + 0, Math.floor(Math.random() * n_size2) + 0,70, 70);
                                 // p.filter('BLUR', 3);
-                                // p.circle(Math.floor(Math.random() * n_size2) + 0, Math.floor(Math.random() * n_size1) + 0, Math.floor(Math.random() * n_size2/5) + 0);
+                                p.circle(Math.floor(Math.random() * n_size2) + 0, Math.floor(Math.random() * n_size1) + 0, Math.floor(Math.random() * 30) + 20);
                                 // p.filter('');
                                 p.fill($('.pcr-result').val());
                             }
 
                             p.textFont(text[i][6]);
                             p.text(text[i][3], /*marginLeftArray[text[i][0]] +*/ marginLeft, marginTop_loc);
-                            marginLeft += p.textWidth(text[i][3]) / 2;
+                            marginLeft += p.textWidth(text[i][3]) / 2.5;
                         }
                     }
                     function getTextSize() {
@@ -312,7 +347,7 @@ function run() {
                         font = 'font_lat_' + (Math.floor(Math.random() * 8) + 0);
                     p.textFont(font);
                     if (textDescription != null) {
-                        drawDescription(textDescription, 36);
+                        drawDescription(textDescription, 30);
                     }
                     if (textDate != null) {
                         drawDescription(textDate, 42);
@@ -373,6 +408,7 @@ function run() {
 
         }
     ));
+    $('#preLoader').hide();
 }
 
 run();

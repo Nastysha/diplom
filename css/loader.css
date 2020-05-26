@@ -30,7 +30,9 @@
 .right-menu {
     display: flex;
     flex-flow: column wrap;
-    width: 100%;
+    /*width: 100%;*/
+    padding: 120px;
+    width: 600px;
 }
 
 .right-menu button {
@@ -41,17 +43,20 @@
     display: flex;
     flex-flow: column wrap;
     width: 100%;
+    margin-inside: 20px;
 }
 
 .input-container label {
     margin: 6px;
     font-size: 1.5em;
+    margin-top: 20px;
 }
 
 .input-container input,
 .input-container textarea {
     margin: 6px;
     border-radius: 4px;
+    resize: none
 }
 
 .input-color {
@@ -61,7 +66,8 @@
 }
 
 .input-color .pickr {
-    margin: auto 6px;
+    margin-top: 24px;
+    /*margin: auto 6px;*/
 }
 
 .pickr .pcr-button {
@@ -145,8 +151,46 @@
     font-family: font_lat_8; /* Имя шрифта */
     src: url(../fonts/08.ttf); /* Путь к файлу со шрифтом */
 }
-
+.loadFonts {
+}
 
 .sideBar {
     background: rgba(0,0,0);
+}
+
+.save-btn {
+    transition-duration: 0.4s;
+    border-radius: 12px;
+    padding: 6px 6px;
+    background-color: #000000;
+    border: 0px solid #000000;
+}
+
+.btn-box-used {
+    margin-top: 14%;
+    margin-left: 20%;
+}
+.canvas-box {
+    padding: 100px;
+    padding-left: 40px;
+
+}
+
+.sbm {
+    margin-top: 20%!important;
+}
+
+.bk-black {
+    padding: 10px;
+    background: black;
+    color: white;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    text-align:left;
+    vertical-align:middle;
+    font-size : 14px;
+}
+
+.input-text-aria {
+
 }
